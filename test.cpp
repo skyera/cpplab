@@ -13,8 +13,12 @@
 #include <set>
 #include <limits>
 #include <thread>
+#include <variant>
 
 int fact(int n) {
+    if (n == 0) {
+        return 1;
+    }
     return n <= 1 ? n : fact(n - 1) * n;
 }
 
@@ -311,3 +315,67 @@ TEST_CASE("tutorial_slow_v2") {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     });
 }
+
+constexpr double square(double x)
+{
+    return x * x;
+}
+
+TEST_CASE("init") {
+    double d2{2.3};
+    std::vector<int> v{1,2,3,4,5,6};
+    auto b = true;
+    auto bb{true};
+
+    constexpr double max1 = 1.4 * square(17);
+}
+
+void print()
+{
+    int v[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    for (auto& x: v)
+        std::cout << x << "\n";
+
+    for (auto& x: {10, 21, 32, 43, 54, 65})
+        std::cout << x << "\n";
+}
+
+TEST_CASE("range") {
+    print();
+}
+
+// A Tour of C++ (13)
+int count_x(const char* p, char x)
+{
+    if (p == nullptr)
+        return 0;
+
+    int count = 0;
+    while (*p) {
+        if (*p == x)
+            ++count;
+        ++p;
+    }
+    return count;
+}
+
+TEST_CASE("nullptr") {
+    double *pd = nullptr;
+
+    char str[] = "hello world";
+    auto count = count_x(str, 'l');
+    REQUIRE(count == 3);
+}
+
+TEST_CASE("var_in_if") {
+    std::vector<int> v{1,2,3};
+
+    if (auto n = v.size()) {
+        std::cout << "n: " << n << "\n";
+    }
+}
+
+struct Entry {
+
+};
