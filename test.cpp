@@ -376,6 +376,23 @@ TEST_CASE("var_in_if") {
     }
 }
 
-struct Entry {
+TEST_CASE("variant1") {
+    std::variant<int, float> v, w;
+    v = 42;
 
-};
+    int i = std::get<int>(v);
+    REQUIRE(i == 42);
+
+    w = v;
+    try {
+        std::get<float>(w);
+    } catch (const std::bad_variant_access& ex) {
+        std::cout << ex.what() << "\n";
+    }
+}
+
+enum  class Color {red, blue, green};
+
+TEST_CASE("enum") {
+    Color color = Color::red;
+}
