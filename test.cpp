@@ -14,6 +14,7 @@
 #include <limits>
 #include <thread>
 #include <variant>
+#include <nlohmann/json.hpp>
 
 int fact(int n) {
     if (n == 0) {
@@ -395,4 +396,58 @@ enum  class Color {red, blue, green};
 
 TEST_CASE("enum") {
     Color color = Color::red;
+}
+
+class A
+{
+public:
+    A() {}
+};
+
+class B
+{
+public:
+    explicit B(int x=0, bool b=true)
+    {
+
+    }
+};
+
+class C
+{
+public:
+    explicit C(int x):x_(x)
+    {
+
+    }
+private:
+    int x_;
+};
+
+void do_something(B obj)
+{
+
+}
+
+TEST_CASE("explicit") {
+    B bobj1;
+    B bobj2(28);
+
+    do_something(B(28));
+    //do_something(28);
+}
+
+class GamePlayer
+{
+private:
+    enum { NumTurns = 5 };
+    int scors[NumTurns];
+};
+
+using json = nlohmann::json;
+TEST_CASE("json") {
+    
+    auto j = json::parse(R"({"happy": true, "pi": 3.141})");
+    std::string s = j.dump();
+    std::cout << "json " << s << "\n";
 }
