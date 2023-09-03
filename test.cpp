@@ -447,7 +447,8 @@ private:
 using json = nlohmann::json;
 TEST_CASE("json") {
     
-    auto j = json::parse(R"({"happy": true, "pi": 3.141})");
+    auto j = json::parse(R"({"leaf": {"happy": true, "pi": 3.141}})");
     std::string s = j.dump();
     std::cout << "json " << s << "\n";
+    std::cout << "happ: " << j["leaf"]["happy"] << "\n";
 }
