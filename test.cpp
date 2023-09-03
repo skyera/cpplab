@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
 #include <iterator>
 #include <string>
 #include <vector>
@@ -451,4 +452,41 @@ TEST_CASE("json") {
     std::string s = j.dump();
     std::cout << "json " << s << "\n";
     std::cout << "happ: " << j["leaf"]["happy"] << "\n";
+}
+
+TEST_CASE("json_create") {
+    json j;
+
+    j["pi"] = 3.141;
+    j["happy"] = true;
+    j["name"] = "Niels";
+    j["nothing"] = nullptr;
+    j["answer"]["everything"] = 42;
+    j["list"] = {1, 0, 2};
+    j["object"] = {{"currency", "USD"}, {"value", 42.99}};
+    
+    std::cout << j.dump() << "\n";
+}
+
+TEST_CASE("json_create1") {
+    json j2 = {
+        {"pi", 3.141},
+        {"happy", true},
+        {"name", "Niels"},
+        {"nothing", nullptr},
+        {"answer", {
+                       "everything", 42
+                   }},
+        {"list", {1, 0, 2}},
+        {"object", {
+                       {"currency", "USD"},
+                       {"value", 42.99}
+                   }}
+        
+    };
+    std::cout << j2["object"]["value"] << "\n";
+    std::cout << j2["nothing"] << "\n";
+
+    std::ofstream out_file("s.json");
+    out_file << j2.dump();
 }
