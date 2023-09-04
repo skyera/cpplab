@@ -16,6 +16,8 @@
 #include <thread>
 #include <variant>
 #include <nlohmann/json.hpp>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 int fact(int n) {
     if (n == 0) {
@@ -64,7 +66,7 @@ public:
     }
 };
 
-enum struct Visible {True, False};
+enum class MyVisible {XTrue = 1, XFalse=2};
 
 TEST_CASE("testing the factorial function") {
     CHECK(fact(0) == 1); // should fail
@@ -286,7 +288,7 @@ TEST_CASE("max2") {
 }
 
 TEST_CASE("enum") {
-    Visible v = Visible::True;
+   MyVisible v = MyVisible::XTrue;
 
     std::cout << "v: " << (int)v << std::endl;
 }
@@ -489,4 +491,13 @@ TEST_CASE("json_create1") {
 
     std::ofstream out_file("s.json");
     out_file << j2.dump();
+}
+
+TEST_CASE("img") {
+    int width, height, channels;
+
+    unsigned char* img = stbi_load("lena.png", &width, &height, &channels, 0);
+    std::cout << "'width: " << width << " height: " << height << " channel: "
+        << channels << "\n";
+    REQUIRE(img != nullptr);
 }
