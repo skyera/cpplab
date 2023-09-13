@@ -18,6 +18,7 @@
 #include <nlohmann/json.hpp>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include <bitset>
 
 int fact(int n) {
     if (n == 0) {
@@ -500,4 +501,18 @@ TEST_CASE("img") {
     std::cout << "'width: " << width << " height: " << height << " channel: "
         << channels << "\n";
     REQUIRE(img != nullptr);
+}
+
+TEST_CASE("bitshift") {
+    unsigned short short1 = 4;
+    std::bitset<16> bitset1{short1};
+    std::cout << bitset1 << std::endl;
+
+    unsigned short short2 = short1 << 48;
+    std::bitset<16> bitset2{short2};
+    std::cout << bitset2 << std::endl;
+
+    unsigned long a = static_cast<unsigned long>(short1) << 48;
+    std::bitset<64> b{a};
+    std::cout << b << std::endl;
 }
