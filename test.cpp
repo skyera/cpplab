@@ -19,6 +19,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include <bitset>
+#include <exception>
 
 int fact(int n) {
     if (n == 0) {
@@ -93,6 +94,7 @@ TEST_CASE("fake") {
     fakeit::When(Method(mock,foo)).Return(1); // Method mock.foo will return 1 once.
     SomeInterface &i = mock.get();
     std::cout << i.foo(0);
+    REQUIRE(i.foo(0) == 1);
 }
 
 int transmogrify(int x) {
@@ -515,4 +517,99 @@ TEST_CASE("bitshift") {
     unsigned long a = static_cast<unsigned long>(short1) << 48;
     std::bitset<64> b{a};
     std::cout << b << std::endl;
+}
+
+// verify method invocation
+TEST_CASE("fake_verify") {
+    fakeit::Mock<SomeInterface> mock;
+
+    fakeit::When(Method(mock, foo)).Return(0);
+    SomeInterface& i = mock.get();
+    i.foo(1);
+    fakeit::Verify(Method(mock, foo));
+    fakeit::Verify(Method(mock, foo).Using(2));
+}
+
+struct ISome {
+    virtual int foo(int) = 0;
+    virtual int bar(int, int) = 0;
+    virtual int baz(int*, int&) = 0;
+};
+
+TEST_CASE("fakeit_multiple_return1") {
+    fakeit::Mock<ISome> mock;
+    fakeit::When(Method(mock, foo)).Return(1);
+
+    fakeit::When(Method(mock, foo)).Return(1,2,3);
+    
+    ISome& i = mock.get();
+    std::cout << i.foo(0) << "\n";
+    std::cout << i.foo(0) << "\n";
+    std::cout << i.foo(0) << "\n";
+}
+
+TEST_CASE("fakeit_multiple_return2") {
+    fakeit::Mock<ISome> mock;
+    fakeit::When(Method(mock, foo)).Return(1);
+
+    fakeit::When(Method(mock, foo)).Return(1).Return(2).Return(3);
+    
+    ISome& i = mock.get();
+    std::cout << i.foo(0) << "\n";
+    std::cout << i.foo(0) << "\n";
+    std::cout << i.foo(0) << "\n";
+}
+
+TEST_CASE("fakeit_always_return") {
+    fakeit::Mock<ISome> mock;
+    fakeit::When(Method(mock, foo)).Return(1);
+
+    fakeit::When(Method(mock, foo)).AlwaysReturn(1);
+    
+    ISome& i = mock.get();
+    std::cout << i.foo(0) << "\n";
+    std::cout << i.foo(0) << "\n";
+    std::cout << i.foo(0) << "\n";
+}
+
+TEST_CASE("fakeit_foo1_100") {
+    fakeit::Mock<ISome> mock;
+    fakeit::When(Method(mock, foo).Using(1)).Return(100);
+
+    ISome& i = mock.get();
+    std::cout << i.foo(1) << "\n";
+}
+
+TEST_CASE("fakeit_foo1_100_a") {
+    fakeit::Mock<ISome> mock;
+    fakeit::When(Method(mock, foo)).AlwaysReturn(0);
+    fakeit::When(Method(mock, foo).Using(1)).AlwaysReturn(100);
+
+    ISome& i = mock.get();
+    std::cout << i.foo(4) << "\n";
+    std::cout << i.foo(1) << "\n";
+    REQUIRE(i.foo(5) == 0);
+    REQUIRE(i.foo(1) == 100);
+}
+
+TEST_CASE("fakeit_exception") {
+    fakeit::Mock<ISome> mock;
+    fakeit::When(Method(mock, foo)).Throw(std::exception());
+    
+    ISome& i = mock.get();
+    REQUIRE_THROWS_AS(i.foo(1), std::exception);
+}
+
+TEST_CASE("fakeit_output_param") {
+    fakeit::Mock<ISome> mock;
+
+    // i.baz(2,3)->1
+    fakeit::When(Method(mock, baz)).ReturnAndSet(1, 2, 3);
+    ISome& i = mock.get();
+
+    int a, b;
+    int c = i.baz(&a, b);
+    REQUIRE(a == 2);
+    REQUIRE(b == 3);
+    REQUIRE(c == 1);
 }
