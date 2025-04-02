@@ -15,7 +15,7 @@
 #include <limits>
 #include <thread>
 #include <variant>
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include <bitset>
