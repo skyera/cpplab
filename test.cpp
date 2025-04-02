@@ -335,6 +335,7 @@ TEST_CASE("init") {
     auto bb{true};
 
     constexpr double max1 = 1.4 * square(17);
+    printf("%f %d %d %f\n", d2, b, bb, max1);
 }
 
 void print()
@@ -373,6 +374,7 @@ TEST_CASE("nullptr") {
     char str[] = "hello world";
     auto count = count_x(str, 'l');
     REQUIRE(count == 3);
+    printf("%p\n", pd);
 }
 
 TEST_CASE("var_in_if") {
@@ -402,6 +404,7 @@ enum  class Color {red, blue, green};
 
 TEST_CASE("enum") {
     Color color = Color::red;
+    printf("color %d\n", (int)color);
 }
 
 class A
@@ -413,10 +416,15 @@ public:
 class B
 {
 public:
-    explicit B(int x=0, bool b=true)
+    explicit B(int x=0, bool b=true):x_(x), b_(b)
     {
 
     }
+
+    int x() { return x_; }
+private:
+    int x_;
+    int b_;
 };
 
 class C
@@ -432,7 +440,7 @@ private:
 
 void do_something(B obj)
 {
-
+    printf("obj.x %d\n", obj.x());
 }
 
 TEST_CASE("explicit") {
