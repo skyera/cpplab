@@ -503,6 +503,7 @@ TEST_CASE("img") {
     std::cout << "'width: " << width << " height: " << height << " channel: "
         << channels << "\n";
     REQUIRE(img != nullptr);
+    stbi_image_free(img);
 }
 
 TEST_CASE("bitshift") {
@@ -612,4 +613,12 @@ TEST_CASE("fakeit_output_param") {
     REQUIRE(a == 2);
     REQUIRE(b == 3);
     REQUIRE(c == 1);
+}
+
+TEST_CASE("buffer_overflow") {
+    int *p = new int[10];
+    int a;
+
+    int b = a + 3;
+    printf("b %d\n", b);
 }
