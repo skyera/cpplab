@@ -13,9 +13,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Initialzie, update submodels
+    - name: Initialzie, update submodules
       run: |
         git submodule update --init --recursive
     - name: make
       run: |
         make  
+    - name: Notify on success
+      if: success()
+      run: echo "Build and tests passed successfully!"
+
+    - name: Notify on failure
+      if: failure()
+      run: echo "Build or tests failed. Please check the logs."
