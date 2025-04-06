@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "action" ]
+  pull_request:
+    branches: [ "action" ]
+
+jobs:
+  build:
+
+    runs-on: thinkcentre
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Initialzie, update submodels
+      run: |
+        git submodule update --init --recursive
+    - name: make
+      run: |
+        make  
