@@ -630,3 +630,7 @@ TEST_CASE("buffer_overflow") {
     int b = a + 3;
     printf("b %d\n", b);
 }
+
+TEST_CASE("test") {
+    std::cout << "test\n";
+}
