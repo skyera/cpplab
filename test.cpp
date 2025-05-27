@@ -631,6 +631,6 @@ TEST_CASE("buffer_overflow") {
     printf("b %d\n", b);
 }
 
-TEST_CASE("test") {
+TEST_CASE("test1") {
     std::cout << "test\n";
 }
