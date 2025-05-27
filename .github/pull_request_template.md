@@ -1,9 +1,9 @@
 # Pull Request Template
 
-## Description
+## 📝 Description
 Provide a brief overview of the changes introduced in this pull request. Include the context and purpose of the changes, summarizing what the PR accomplishes and why it is necessary.
 
-## Type of Change
+## ✅ Type of Change
 Indicate the type of change this PR introduces by checking the appropriate box(es):
 
 - [ ] Bug Fix (corrects an issue)
@@ -13,13 +13,13 @@ Indicate the type of change this PR introduces by checking the appropriate box(e
 - [ ] Documentation Update (changes to documentation)
 - [ ] Other (please specify): ________
 
-## Problem Statement
+## ❗ Problem Statement
 Clearly describe the specific problem or issue this PR addresses. Include relevant background information, such as bug reports, feature requests, or performance issues.
 
 - **Issue Reference**: Provide a link to the Rational Team Concert (RTC) issue number (e.g., `Link to RTC #123`) or describe if no issue exists.
 - **Impact**: Explain how this problem affects the project or its users.
 
-## Steps to Reproduce
+## 🔄 Steps to Reproduce
 For bugs or issues, provide detailed steps to reproduce the problem. If this is a new feature, describe how to verify the functionality.
 
 1. [Step 1]
@@ -27,7 +27,7 @@ For bugs or issues, provide detailed steps to reproduce the problem. If this is 
 3. [Expected Behavior]
 4. [Actual Behavior]
 
-## Technical Approach
+## 🛠️ Technical Approach
 Explain the technical solution implemented in this PR. Include details about the design, algorithms, or C++-specific techniques used (e.g., memory management, templates, concurrency).
 
 - **Changes Made**:
@@ -37,7 +37,7 @@ Explain the technical solution implemented in this PR. Include details about the
   - Justify the chosen solution over alternatives.
   - Mention trade-offs, if any (e.g., performance vs. readability).
 
-## Lessons Learned
+## 📚 Lessons Learned
 Document any insights or challenges encountered during development. This could include:
 - **Uninitialized Variables**: Identified and resolved issues with uninitialized variables causing undefined behavior (e.g., random values in local variables). Adopted practices like initializing variables at declaration or using tools like Valgrind to detect uninitialized memory access.
 - **Buffer Overflow**: Addressed buffer overflow vulnerabilities (e.g., writing beyond array bounds). Implemented bounds checking, used `std::vector` or `std::array` for safer memory management, and tested with tools like AddressSanitizer to catch overflows.
@@ -45,7 +45,7 @@ Document any insights or challenges encountered during development. This could i
 - Performance optimizations or debugging techniques.
 - Best practices adopted (e.g., RAII, const-correctness).
 
-## Test Report: How Has This Been Tested
+## 🧪 Test Report: How Has This Been Tested
 The changes were tested through a combination of unit, edge, error, baseline, integration, performance, and manual tests. Testing was conducted locally (e.g., on Ubuntu 22.04 with GCC 12.3) and on CI using Doctest for C++ unit tests and pytest for Python unit tests (if applicable, e.g., for pybind11 bindings). Baseline tests were performed using `testjob.py` to execute standard test scenarios and `analyzejob.py` to validate results against expected metrics. Integration tests with Viva’s payment APIs were performed using build 27.XXX in Viva’s YYY tool (e.g., Demo environment or payment simulator) with specified test recipes, and recipes were executed on tools ZZZ (e.g., CI pipeline or Payconiq’s External Environment). Additional tools like Valgrind for memory checks and Google Benchmark for performance were used. Below are the detailed results:
 
 - **Unit Tests**:
@@ -83,7 +83,7 @@ The changes were tested through a combination of unit, edge, error, baseline, in
   - Include any relevant metrics (e.g., performance benchmarks, memory usage).
   - Example: `All Doctest, pytest, baseline (via testjob.py and analyzejob.py), and Viva tests (build 27.XXX on YYY tool, recipes on ZZZ) passed on CI. Performance improved by 20% for X scenario. Memory usage reduced by 10MB. Viva API transactions processed successfully.`
 
-## Checklist
+## 📋 Checklist
 - [ ] Code compiles without warnings (e.g., `-Wall -Wextra` for GCC/Clang).
 - [ ] All Doctest, pytest, baseline (testjob.py, analyzejob.py), and Viva tests pass locally and on CI.
 - [ ] Code follows project style guidelines (e.g., naming conventions, formatting).
@@ -91,7 +91,7 @@ The changes were tested through a combination of unit, edge, error, baseline, in
 - [ ] Memory leaks checked (e.g., using Valgrind or AddressSanitizer).
 - [ ] Performance considerations addressed (e.g., no regressions in benchmarks).
 
-## Additional Notes
+## ℹ️ Additional Notes
 Add any other relevant information, such as:
 - Dependencies introduced (e.g., Doctest library, version X.Y.Z; pytest, version X.Y.Z; Viva SDK for build 27.XXX, YYY tool credentials, tools ZZZ setup; `testjob.py` and `analyzejob.py` scripts).
 - Future improvements or known limitations.
@@ -99,7 +99,7 @@ Add any other relevant information, such as:
 
 ---
 
-**Reviewer Instructions**:
+## 👀 Reviewer Instructions
 - Please verify the problem is resolved by following the "Steps to Reproduce."
 - Check code for C++ best practices (e.g., memory safety, exception handling) and Python best practices (if applicable).
 - Ensure Doctest, pytest, baseline (via testjob.py and analyzejob.py), and Viva tests (build 27.XXX on YYY tool, recipes on ZZZ) cover edge cases, invalid inputs, and performance adequately.
