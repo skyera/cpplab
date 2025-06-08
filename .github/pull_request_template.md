@@ -29,6 +29,8 @@ For bugs or issues, provide detailed steps to reproduce the problem. If this is 
 
 ## 🛠️ Technical Approach
 Explain the technical solution implemented in this PR. Include details about the design, algorithms, or C++-specific techniques used.
+- **Explain how root cause was identifed for bugs**
+  - Such git bisect, gdb etc.
 
 - **Changes Made**:
   - List key code changes (e.g., new classes, modified functions).
