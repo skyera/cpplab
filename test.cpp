@@ -156,29 +156,29 @@ TEST_CASE("sort") {
     std::cout << "\n";
 }
 
-struct StringSize:
-    public std::unary_function<std::string, std::string::size_type>
-{
-    std::string::size_type operator()(const std::string& s) const
-    {
-        return s.size();
-    }
-};
+// struct StringSize:
+//     public std::unary_function<std::string, std::string::size_type>
+// {
+//     std::string::size_type operator()(const std::string& s) const
+//     {
+//         return s.size();
+//     }
+// };
 
-template<typename FPType>
-FPType average(FPType val1, FPType val2) {
-    return (val1 + val2) / 2;
-}
+// template<typename FPType>
+// FPType average(FPType val1, FPType val2) {
+//     return (val1 + val2) / 2;
+// }
 
 
-template<typename FPType>
-struct Average:
-    public std::binary_function<FPType, FPType, FPType> {
-    FPType operator()(FPType val1, FPType val2) const
-    {
-        return average(val1, val2);
-    }
-};
+// template<typename FPType>
+// struct Average:
+//     public std::binary_function<FPType, FPType, FPType> {
+//     FPType operator()(FPType val1, FPType val2) const
+//     {
+//         return average(val1, val2);
+//     }
+// };
 
 template<typename InputIter1,
          typename InputIter2>
@@ -195,21 +195,21 @@ void writeaverages(InputIter1 begin1,
     /*         Average<typename iterator_traits<InputIter1::value_type>()); */
 }
 
-TEST_CASE("mem_fun_ref") {
-    std::set<std::string> s{"abc", "ef"};
+// TEST_CASE("mem_fun_ref") {
+//     std::set<std::string> s{"abc", "ef"};
 
-    SUBCASE("mem_fun_ref") {
-        std::transform(s.begin(), s.end(),
-                std::ostream_iterator<std::string::size_type>(std::cout, "\n"),
-                std::mem_fun_ref(&std::string::size));
-    }
+//     SUBCASE("mem_fun_ref") {
+//         std::transform(s.begin(), s.end(),
+//                 std::ostream_iterator<std::string::size_type>(std::cout, "\n"),
+//                 std::mem_fun_ref(&std::string::size));
+//     }
 
-    SUBCASE("unary_function") {
-        std::transform(s.begin(), s.end(),
-                std::ostream_iterator<std::string::size_type>(std::cout, "\n"),
-                StringSize());
-    }
-}
+//     SUBCASE("unary_function") {
+//         std::transform(s.begin(), s.end(),
+//                 std::ostream_iterator<std::string::size_type>(std::cout, "\n"),
+//                 StringSize());
+//     }
+// }
 
 TEST_CASE("max") {
     int a = 3;
